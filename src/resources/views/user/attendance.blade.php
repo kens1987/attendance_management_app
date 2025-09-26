@@ -18,7 +18,7 @@
     <p class="time text-5xl font-extrabold my-4">
         {{ now()->format('H:i') }}
     </p>
-    @if($attendance && $attendance->status === '退勤済み')
+    @if($attendance && $attendance->status === '退勤済')
         <p class="text-lg font-bold text-green-600 mt-2">お疲れ様でした。</p>
     @endif
 

@@ -1,29 +1,40 @@
-<main class="container">
-    <section class="card">
-        <h1>スタッフ一覧</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>名前</th>
-                    <th>メールアドレス</th>
-                    <th>所属</th>
-                    <th>詳細</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>山田 太郎</td>
-                    <td>taro@example.com</td>
-                    <td>営業部</td>
-                    <td><a href="#" class="btn btn-small">勤怠</a></td>
-                </tr>
-                <tr>
-                    <td>佐藤 花子</td>
-                    <td>hanako@example.com</td>
-                    <td>開発部</td>
-                    <td><a href="#" class="btn btn-small">勤怠</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </section>
-</main>
+@extends('layouts.admin')
+
+@section('title', 'スタッフ別勤怠一覧')
+
+@section('content')
+<div class="user-id-wrapper">
+    <h1 class="page-title">{{ $user->name }}さんの勤怠一覧</h1>
+    <div class="month-navigation">
+        <a href="{{ route('admin.users.attendances.index', ['user' => $user->id, 'month' => $prevMonth]) }}">前月</a>
+        <span>{{ substr($month,0,4) }}年{{ substr($month,5,2) }}月</span>
+        <a href="{{ route('admin.users.attendances.index', ['user' => $user->id, 'month' => $nextMonth]) }}">翌月</a>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>日付</th>
+                <th>出勤</th>
+                <th>退勤</th>
+                <th>休憩</th>
+                <th>合計</th>
+                <th>詳細</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($attendances as $attendance)
+        <tr>
+            <td>{{ $attendance->work_date }}</td>
+            <td>{{ $attendance->clock_in }}</td>
+            <td>{{ $attendance->clock_out }}</td>
+            <td>{{ $attendance->break_time }}</td>
+            <td>{{ $attendance->working_hours }}</td>
+            <td>
+                <a href="{{ route('admin.detail', $attendance->id) }}" class="btn-link">詳細</a>
+            </td>
+        </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@endsection

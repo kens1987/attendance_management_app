@@ -19,6 +19,17 @@
 ###  ER図  
   
 ###  URL  
-  勤怠管理：http://localhost/  
+  勤怠管理：http://localhost/login  
+  一般ユーザー6名分のアカウント  
+  メールアドレス：user1@example.com  
+  メールアドレス：user2@example.com  
+  メールアドレス：user3@example.com  
+  メールアドレス：user4@example.com  
+  メールアドレス：user5@example.com  
+  メールアドレス：user6@example.com  
+  パスワードは同じ：password123  
+  管理者用勤怠：http://localhost/admin/login  
+  管理者アカウント  
+  メールアドレス：admin@example.com  
+  パスワード：password123  
   php MyAdmin： http://localhost:8080/  
-

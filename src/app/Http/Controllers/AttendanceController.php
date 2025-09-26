@@ -64,7 +64,7 @@ class AttendanceController extends Controller
             $attendance->update([
                 'clock_out' => Carbon::now(),
                 'working_hours' => round($workingMinutes / 60, 2),
-                'status' => '退勤済み',
+                'status' => '退勤済',
             ]);
         }
         return redirect()->route('attendances.index');
@@ -108,9 +108,19 @@ class AttendanceController extends Controller
     public function list(Request $request){
         $user = $request->user();
         $month = $request->get('month',now()->format('Y-m'));
+
         $attendances = Attendance::where('user_id',$user->id)
         ->whereMonth('work_date',Carbon::parse($month)->month)
         ->whereYear('work_date',Carbon::parse($month)->year)->get();
+
+        foreach ($attendances as $attendance){
+            $totalBreak = $attendance->breakTimes->sum(function($break){
+                $start = Carbon::parse($break->break_start);
+                $end = $break->break_end ? Carbon::parse($break->break_end):Carbon::now();
+                return $end->diffInMinutes($start);
+            });
+            $attendance->break_minutes =round($totalBreak/60,2);
+        }
         return view('user.list',[
             'attendances' => $attendances,
             'currentMonth' => Carbon::parse($month)->format('Y年m月'),

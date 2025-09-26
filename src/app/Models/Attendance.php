@@ -58,4 +58,12 @@ class Attendance extends Model
             $this->saveQuietly();
         }
     }
+
+    public function getBreakMinutesAttribute() {
+        return $this->breakTimes->sum(function($break){
+            $start = \Carbon\Carbon::parse($break->break_start);
+            $end = $break->break_end ? \Carbon\Carbon::parse($break->break_end) : \Carbon\Carbon::now();
+            return $end->diffInMinutes($start); // 分単位
+        });
+    }
 }

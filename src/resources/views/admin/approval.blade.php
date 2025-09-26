@@ -1,42 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
-@section('title', '修正申請')
+@section('title', '修正申請承認')
 
 @section('content')
-<section class="card">
-    <h1>修正申請</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>日付</th>
-                <th>申請者</th>
-                <th>修正前</th>
-                <th>修正後</th>
-                <th>理由</th>
-                <th>操作</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($requests as $request)
-            <tr>
-                <td>{{ $request->date }}</td>
-                <td>{{ $request->user->name }}</td>
-                <td>{{ $request->before_time }}</td>
-                <td>{{ $request->after_time }}</td>
-                <td>{{ $request->reason }}</td>
-                <td>
-                    <form action="{{ route('requests.approve', $request->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                        <button class="btn btn-small">承認</button>
-                    </form>
-                    <form action="{{ route('requests.reject', $request->id) }}" method="POST" style="display:inline;">
-                    @csrf
-                        <button class="btn btn-small btn-danger">却下</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-</section>
+<div class="approval-wrapper">
+    <h1 class="page-title">修正申請承認</h1>
+    <form action="{{ route('admin.requests.update', $request->id) }}" method="post" class="approval-form">
+        @csrf
+        @method('put')
+        <div class="form-group">
+            <label>名前</label>
+            <input type="text" value="山田太郎" disabled>
+        </div>
+        <div class="form-group">
+            <label>修正内容</label>
+            <textarea disabled>出勤時間を 09:00 → 10:00 に修正</textarea>
+        </div>
+        <div class="form-actions">
+            <button type="submit" name="status" value="approved" class="btn-submit">承認</button>
+            <button type="submit" name="status" value="rejected" class="btn-reject">却下</button>
+        </div>
+    </form>
+</div>
 @endsection

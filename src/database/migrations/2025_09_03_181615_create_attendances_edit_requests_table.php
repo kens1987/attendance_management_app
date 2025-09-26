@@ -13,13 +13,13 @@ class CreateAttendancesEditRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendances_edit_requests', function (Blueprint $table) {
+        Schema::create('attendance_edit_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_id')->unique()->constrained('attendances')->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->text('reason');
             $table->enum('status',['pending','approved'])->default('pending');
-            $table->foreignId('approve_by')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');
             $table->datetime('approved_at')->nullable();
             $table->timestamps();
         });

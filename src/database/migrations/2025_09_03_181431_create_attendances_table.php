@@ -20,7 +20,8 @@ class CreateAttendancesTable extends Migration
             $table->datetime('clock_in')->nullable();
             $table->datetime('clock_out')->nullable();
             $table->decimal('working_hours',5,2)->nullable();
-            $table->enum('status',['勤務外','出勤中','休憩中','退勤済み'])->default('勤務外');
+            $table->enum('status',['勤務外','出勤中','休憩中','退勤済'])->default('勤務外');
+            $table->enum('approval_status', ['editable', 'pending', 'approved'])->default('editable');
             $table->text('remarks')->nullable();
             $table->timestamps();
         });

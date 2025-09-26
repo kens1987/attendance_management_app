@@ -15,7 +15,7 @@ class CreateAttendancesEditItemsTable extends Migration
     {
         Schema::create('attendances_edit_items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('attendance_edit_request_id')->constrained('attendances_edit_requests')->onDelete('cascade');
+            $table->foreignId('attendance_edit_request_id')->constrained('attendance_edit_requests')->onDelete('cascade');
             $table->foreignId('break_id')->nullable()->constrained('breaks')->onDelete('cascade');
             $table->enum('field_name',['clock_in','clock_out','break_start','break_end','remarks']);
             $table->text('before_value')->nullable();

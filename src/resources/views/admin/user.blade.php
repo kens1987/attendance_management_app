@@ -1,29 +1,32 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('title', 'スタッフ一覧')
 
 @section('content')
-<section class="card">
-    <h1>スタッフ一覧</h1>
+<div class="user-wrapper">
+    <h1 class="page-title">スタッフ一覧</h1>
     <table class="table">
         <thead>
             <tr>
                 <th>名前</th>
                 <th>メールアドレス</th>
-                <th>所属</th>
-                <th>詳細</th>
+                <th>月次勤怠</th>
             </tr>
         </thead>
         <tbody>
-        @foreach($staffs as $staff)
-            <tr>
-                <td>{{ $staff->name }}</td>
-                <td>{{ $staff->email }}</td>
-                <td>{{ $staff->department }}</td>
-                <td><a href="{{ route('admin.attendances', $staff->id) }}" class="btn btn-small">勤怠</a></td>
-            </tr>
-        @endforeach
+            @foreach($users as $user)
+        <tr>
+            <td>{{ $user->name }}</td>
+            <td>{{ $user->email }}</td>
+            <td>
+                <a href="{{ route('admin.users.attendances.index', $user->id) }}" class="btn-link">
+                    勤怠
+                </a>
+            </td>
+        </tr>
+            @endforeach
         </tbody>
     </table>
-</section>
+</div>
 @endsection
+
