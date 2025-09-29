@@ -19,8 +19,10 @@ class RequestController extends Controller
     }
 
     public function show($id){
-        $request = AttendanceEditRequest::with(['attendance','user','approver'])->findOrFail($id);
-        return view('request.show',compact('request'));
+        $editRequest = AttendanceEditRequest::with(['attendance.breakTimes','user','approver'])->findOrFail($id);
+        $attendance = $editRequest->attendance;
+        $attendance->approval_status = $editRequest->status;
+        return view('user.detail',compact('attendance', 'editRequest'));
     }
 
     public function store(Request $request){

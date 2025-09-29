@@ -29,13 +29,18 @@ class AdminDetailController extends Controller
         if($request->clock_out){
             $attendance->clock_out = Carbon::parse($workDate.''.$request->clock_out);
         }
+        $attendance->save();
+        if($request->break_start || $request->break_end){
+            $breakTime = $attendance->breakTime ?? new \App\Models\BreakTime();
+            $breakTime->attendance_id = $attendance->id;
+        }
         if($request->break_start){
-            $attendance->break_start = Carbon::parse($workDate.''.$request->break_start);
+            $breakTime->break_start = Carbon::parse($workDate.''.$request->break_start);
         }
         if($request->break_end){
-            $attendance->break_end = Carbon::parse($workDate.''.$request->break_end);
+            $breakTime->break_end = Carbon::parse($workDate.''.$request->break_end);
         }
-        $attendance->save();
+        $breakTime->save();
         return redirect()->route('admin.detail',$attendance->id)
         ->with('success','勤怠情報を更新しました。');
     }

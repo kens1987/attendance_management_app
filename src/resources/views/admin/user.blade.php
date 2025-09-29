@@ -20,7 +20,7 @@
             <td>{{ $user->email }}</td>
             <td>
                 <a href="{{ route('admin.users.attendances.index', $user->id) }}" class="btn-link">
-                    勤怠
+                    詳細
                 </a>
             </td>
         </tr>

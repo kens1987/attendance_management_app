@@ -7,11 +7,11 @@
         @csrf
         <input type="email" name="email" placeholder="メールアドレス" value="{{ old('email') }}">
         @error('email')
-        <div class="error">{{ $message }}</div>
+        <div style="color:red;">{{ $message }}</div>
         @enderror
         <input type="password" name="password" placeholder="パスワード" >
         @error('password')
-        <div class="error">{{ $message }}</div>
+        <div style="color:red;">{{ $message }}</div>
         @enderror
         <button type="submit" class="auth-button">ログイン</button>
     </form>

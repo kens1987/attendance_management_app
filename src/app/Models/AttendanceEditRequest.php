@@ -17,16 +17,21 @@ class AttendanceEditRequest extends Model
         'approved_by',
         'approved_at',
     ];
-    public function items(){
-        return $this->hasMany(AttendanceEditItem::class);
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'approved_at' => 'datetime',
+    ];
+    public function user(){
+        return $this->belongsTo(User::class);
     }
     public function attendance(){
         return $this->belongsTo(Attendance::class);
     }
+    public function items(){
+        return $this->hasMany(AttendanceEditItem::class);
+    }
     public function approver(){
         return $this->belongsTo(User::class,'approved_by');
-    }
-    public function user(){
-        return $this->belongsTo(User::class);
     }
 }

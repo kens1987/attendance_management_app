@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttendancesEditItemsTable extends Migration
+class CreateAttendanceEditItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateAttendancesEditItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('attendances_edit_items', function (Blueprint $table) {
+        Schema::create('attendance_edit_items', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_edit_request_id')->constrained('attendance_edit_requests')->onDelete('cascade');
             $table->foreignId('break_id')->nullable()->constrained('breaks')->onDelete('cascade');

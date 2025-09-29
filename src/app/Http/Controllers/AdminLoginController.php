@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,12 +13,7 @@ class AdminLoginController extends Controller
         return view('admin.login');
     }
 
-    public function login(Request $request){
-        $request->validate([
-            'email' => ['required','email'],
-            'password' => ['required'],
-        ]);
-
+    public function login(LoginRequest $request){
         $credentials = array_merge(
             $request->only('email','password'),
             ['role'=>'admin']
@@ -29,7 +25,7 @@ class AdminLoginController extends Controller
             return redirect()->route('admin.list');
         }
         return back()->withErrors([
-            'email' => 'メールアドレスまたはパスワードが正しくありません。',
+            'email' => 'ログイン情報が登録されていません',
         ]);
     }
 

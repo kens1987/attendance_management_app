@@ -35,6 +35,7 @@ Route::prefix('/')->group(function(){
 
         Route::get('/attendances/detail/{id}',[DetailController::class,'show'])->name('user.attendance.show');
         Route::post('/attendances/update/{id}',[DetailController::class,'update'])->name('user.attendance.update');
+        Route::get('/attendances/{id}/confirm',[DetailController::class,'confirm'])->name('user.attendance.confirm');
 
         Route::get('/stamp_correction_request/list',[RequestController::class,'index'])->name('requests.index');
         Route::get('/stamp_correction_request/{id}',[RequestController::class,'show'])->name('requests.show');
@@ -57,6 +58,9 @@ Route::prefix('admin')->name('admin.')->group(function(){
         Route::get('/users/{user}/attendances',[AdminUseridController::class,'index'])->name('users.attendances.index');
 
         Route::get('/requests',[AdminRequestController::class,'index'])->name('requests.index');
+        Route::get('/requests/{id}',[AdminRequestController::class,'show'])->name('requests.show');
+        Route::post('/requests/{id}/approve',[AdminRequestController::class,'approve'])->name('requests.approve');
+
         Route::put('/requests/{id}',[AdminRequestidController::class,'update'])->name('requests.update');
     });
 });

@@ -24,3 +24,4 @@ class AttendanceEditItem extends Model
         return $this->belongsTo(BreakTime::class);
     }
 }
+

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\Attendance;
 use App\Models\BreakTime;
+use App\Models\AttendanceEditRequest;
 use App\Http\Requests\DetailRequest;
 
 class DetailController extends Controller
@@ -13,7 +14,9 @@ class DetailController extends Controller
     public function show($id){
         $attendance = Attendance::with('breakTimes')->findOrFail($id);
         $attendance->approval_status = ($attendance->approval_status === 'editable') ? 'editable' : 'readonly';
-        return view('user.detail', compact('attendance'));
+        $editRequest = AttendanceEditRequest::where('attendance_id',$attendance->id)
+        ->where('user_id',auth()->id())->latest()->first();
+        return view('user.detail', compact('attendance','editRequest'));
     }
 
     public function update(DetailRequest $request, $id)
@@ -22,6 +25,12 @@ class DetailController extends Controller
         if ($attendance->approval_status === 'pending') {
             return back()->with('error', '承認待ちのため修正できません。');
         }
+        $editRequest = AttendanceEditRequest::create([
+        'attendance_id' => $attendance->id,
+        'user_id'       => auth()->id(),
+        'reason'        => $request->remarks,
+        'status'        => 'pending',
+        ]);
         // 出勤更新
         $attendance->update([
             'clock_in'  => $request->clock_in ? Carbon::parse($attendance->work_date.' '.$request->clock_in) : null,

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title','COACHTECH 勤怠管理')</title>
-    <!-- <link rel="stylesheet" href="{{asset('css/auth.css')}}"> -->
+    <!-- <link rel="stylesheet" href="{{asset('css/app.css')}}"> -->
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="{{asset('css/list.css')}}">
     <link rel="stylesheet" href="{{asset('css/detail.css')}}">
